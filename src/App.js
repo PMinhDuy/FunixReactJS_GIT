@@ -1,18 +1,20 @@
 import {Component} from 'react';
 import './App.css';
-import Menu from './components/MenuComponent';
-import { DISHES } from './shared/dishes';
+import StaffList from './components/StaffListComponent';
+import { STAFFS, DEPARTMENTS } from './shared/staffs';
 
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      dishes: DISHES
+      staffs: STAFFS,
+      department: DEPARTMENTS
     };
   }
   render() {
     return (
-      <Menu dishes={this.state.dishes} />
+        <StaffList staffs={this.state.staffs} department={this.state.department} />
+      
     )
   }
 }
