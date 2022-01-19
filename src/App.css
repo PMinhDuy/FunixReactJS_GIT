@@ -25,7 +25,7 @@
 }
 
 .App-link {
-  color: #61dafb;
+  color: white;
 }
 
 @keyframes App-logo-spin {
@@ -36,3 +36,34 @@
     transform: rotate(360deg);
   }
 }
+
+ul li {
+  display: inline;
+  margin: 20px
+}
+.footer{
+  background-color: #0cccf4; 
+  height: 350px;
+  position: relative;
+}
+.footer_text{
+  font-size: 13px;
+  position: absolute;
+  left: 250px;
+  top: 50px;
+}
+.footer_slogan{
+  font-size: 15px;
+  position: absolute;
+  width: 500px;
+  left: 570px;
+  top: 300px;
+}
+.footer_contact{
+  font-size: 15px;
+  position: absolute;
+  left: 800px;
+  top: 100px;
+  display: flex;
+}
+
