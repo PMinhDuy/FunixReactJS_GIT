@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
-import ContactComponent from './components/ContactComponent'
-// import HeaderComponent from './components/HeaderComponent'
+// import ContactComponent from './components/ContactComponent'
+import HeaderComponent from './components/HeaderComponent'
 
 
 class App extends Component {
@@ -9,8 +9,8 @@ class App extends Component {
   render() {
     return (
       <div>
-        <ContactComponent />
-        {/* <HeaderComponent /> */}
+        {/* <ContactComponent /> */}
+        <HeaderComponent />
       </div>
     )
   }
