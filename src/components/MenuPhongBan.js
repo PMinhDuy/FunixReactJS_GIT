@@ -8,6 +8,8 @@ import {
 
 
 function MenuPhongBan(props) {
+
+    // List components phòng ban
     const Department_list = props.department.map((dep) => {
         return(
             <Col key={dep.id} className="bg-light border" style={{padding: 5, textAlign: 'center'}} >
@@ -16,6 +18,7 @@ function MenuPhongBan(props) {
                 </Col>
         )
     })
+    
     return(
         <React.Fragment>  
             <h5 style={{marginLeft: 100}}>

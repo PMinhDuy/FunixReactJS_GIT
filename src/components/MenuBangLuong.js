@@ -10,6 +10,8 @@ import {
 function MenuBangLuong(props) {
     const basicSalary = 3000000;
     const overTimeSalary = 200000;
+    console.log("menubangluong")
+    // List Component bảng lương
     const Salary_list = props.staffs.map((sta) => {
         return(
             <Col key={sta.id} className="bg-light border" style={{padding: 5, textAlign: 'center'}} >
@@ -21,8 +23,9 @@ function MenuBangLuong(props) {
                 </Col>
         )
     })
+
     return(
-        <React.Fragment>   
+        <React.Fragment> 
             <h5 style={{marginLeft: 100}}>
             <Link to="/">Nhân Viên </Link> / Bảng Lương
             </h5>

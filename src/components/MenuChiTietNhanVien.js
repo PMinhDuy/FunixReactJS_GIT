@@ -6,7 +6,9 @@ import {
 
 
 function MenuChiTietNhanVien(props) {
-    const Detail_Staff = (() => {
+
+    // Component chi tiết nhân viên
+    const DetailStaff = (() => {
         return (
             <div style={{ display: 'flex', margin: 20 }}>
                 <img src={props.staff.image} alt="hinh anh" style={{ width: '17%' }} />
@@ -21,12 +23,13 @@ function MenuChiTietNhanVien(props) {
             </div>
         )
     })
+
     return (
         <React.Fragment>
             <h5 style={{ marginLeft: 10 }}>
                 <Link to="/">Nhân Viên </Link> / {props.staff.name}
             </h5>
-            <Detail_Staff />
+            <DetailStaff />
         </React.Fragment>
     )
 }
