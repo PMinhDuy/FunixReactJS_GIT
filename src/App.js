@@ -1,5 +1,5 @@
 // import từ thư viện
-import { useState, useRef } from 'react';
+
 import {
   Navbar, Label, FormGroup, Form, Input, Col, Button
 } from 'reactstrap';
@@ -23,22 +23,11 @@ import { DEPARTMENTS } from './shared/staffs';
 function App(props) {
 
   const department = DEPARTMENTS
-  const SearchInput = useRef(null)
-
-
-  // Hàm xử lý tìm kiếm
-  const handleSearch = () => {
-    const result = props.staffs.filter((staff) => {
-      return staff.name === SearchInput.current.value
-    })
-    // setStaffs(result)
-    // setContent(result)
-  }
 
   // Component tìm id được chọn
   const StaffWidthId = (prop) => {
     return (
-      <MenuChiTietNhanVien staff={props.staffs.find((staff) => staff.id === prop.staffId)} />
+      <MenuChiTietNhanVien staff={props.staffs.Staffs.find((staff) => staff.id === prop.staffId)} />
     );
   }
 
@@ -59,15 +48,10 @@ function App(props) {
           <li>
             <Link style={{ color: "white", textDecoration: "none" }} to="/bangluong"><i className="fa fa-money" style={{ fontSize: 24 }}></i>  Bảng Lương </Link>
           </li>
-          <li style={{ position: 'absolute', top: 10, right: 120 }}>
-            <i className="fa fa-search" style={{ fontSize: 24 }}></i>
-            <input type="text" placeholder="Nhập tên..."
-              ref={SearchInput}
-            />
+          <li >
+            
           </li>
-          <li style={{ position: 'absolute', top: 10, right: 30 }}>
-            <button type="button" onClick={handleSearch}>Tìm kiếm</button>
-          </li>
+
         </ul>
       </Navbar>
     )
@@ -79,8 +63,8 @@ function App(props) {
         <Routes>
           <Route path="/" element={<MenuNhanVien  />} />
           <Route path="/phongban" element={<MenuPhongBan department={department} />} />
-          <Route path="/bangluong" element={<MenuBangLuong staffs={props.staffs} />} />
-          {props.staffs.map((staff) => {
+          <Route path="/bangluong" element={<MenuBangLuong staffs={props.staffs.Staffs} />} />
+          {props.staffs.Staffs.map((staff) => {
             return (
               <Route key={staff.id} path={`/chitietnhanvien/${staff.id}`} element={<StaffWidthId staffId={staff.id} />} />
             )
