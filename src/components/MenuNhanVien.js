@@ -5,28 +5,18 @@ import {
 import { Link } from 'react-router-dom'
 import { useState, useRef } from 'react'
 import { connect } from "react-redux";
-// import { Control, Errors, LocalForm } from "react-redux-form"
+import { Control, LocalForm, Errors } from 'react-redux-form';
+
 
 import { actAddStaff, actSearchStaff } from '../actions/index'
 
 
-// const required = (val) => val && val.length;
-// const maxLength = (len) => (val) => !(val) || (val.length <= len);
-// const minLength = (len) => (val) => val && (val.length >= len);
-// const isNumber = (val) => !isNaN(Number(val));
+
 
 function MenuNhanvien(props) {
     const SearchInput = useRef(null)
     const [modal, setModal] = useState(false)
-    const [name, setName] = useState('')
-    const [doB, setDoB] = useState('')
-    const [salaryScale, setSalaryScale] = useState('')
-    const [startDate, setStartDate] = useState('')
-    const [department, setDepartment] = useState('')
-    const [annualLeave, setAnnualLeave] = useState('')
-    const [overTime, setOverTime] = useState('')
-
-
+ 
 
     // List components staff
     const Staff_list = props.staffs.map((staff) => {
@@ -42,19 +32,11 @@ function MenuNhanvien(props) {
 
 
     // Hàm xử lý add
-    const handleSubmit = () => {
-        const newStaff = {
-            id: props.staffs.length + 1,
-            name: name,
-            doB: doB,
-            salaryScale: salaryScale,
-            startDate: startDate,
-            department: department,
-            annualLeave: annualLeave,
-            overTime: overTime,
-            image: '/assets/images/alberto.png',
-        }
-        props.addStaff(newStaff)
+    const handleSubmit = (value) => {
+
+        console.log(JSON.stringify(value))
+        // }
+        props.addStaff(value)
         alert("Bạn có chắc chắn muốn thêm?")
         setModal(!modal)
     }
@@ -64,9 +46,6 @@ function MenuNhanvien(props) {
     const handleSearch = () => {
         const searchInp = SearchInput.current.value
         const input_Upper = searchInp.toUpperCase()
-        // const regex = new RegExp(searchInp);
-        // console.log(searchInp.test("Duy"))
-
         const result = props.staffs.filter((staff) => {
             return staff.name.toUpperCase().indexOf(input_Upper) !== -1
         })
@@ -76,53 +55,10 @@ function MenuNhanvien(props) {
     }
 
 
-    const validate = (name, doB, startDate, salaryScale, annualLeave, overTime) => {
-        const errors = {
-            name: '',
-            doB: '',
-            startDate: '',
-            salaryScale: '',
-            annualLeave: '',
-            overTime: ''
-        };
-        if (name.length < 5) {
-            errors.name = 'Name should be >= 5 characters';
-
-        }
-        else if (name.length > 20) {
-            errors.name = 'Name should be <= 20 characters';
-
-        }
-
-
-        if (doB.length === 0) {
-            errors.doB = 'Year of Birth should be > 0 characters';
-
-        }
-
-        if (startDate.length === 0) {
-            errors.startDate = 'Year of Birth should be > 0 characters';
-
-        }
-
-        if (salaryScale.length === 0) {
-            errors.salaryScale = 'salaryScale should be > 0 characters';
-
-        }
-        if (annualLeave.length === 0) {
-            errors.annualLeave = 'annualLeave should be > 0 characters';
-
-        }
-        if (overTime.length === 0) {
-            errors.overTime = 'overTime should be > 0 characters';
-
-        }
-
-
-        return errors;
-    }
-
-    const errors = validate(name, doB, startDate, salaryScale, annualLeave, overTime);
+    const required = (val) => val && val.length;
+    const maxLength = (len) => (val) => !(val) || (val.length <= len);
+    const minLength = (len) => (val) => val && (val.length >= len);
+ 
 
     return (
         <React.Fragment>
@@ -157,115 +93,159 @@ function MenuNhanvien(props) {
                         Thêm nhân viên mới
                     </ModalHeader>
                     <ModalBody>
-                        <FormGroup row >
-                            <Label htmlFor="name" md={2}>Họ và tên</Label>
-                            <Col md={10}>
-                                <Input type="name" id="name" name="name"
-                                    placeholder="Name..."
-                                    value={name}
-                                    onChange={(e) => setName(e.target.value)}
-                                    valid={errors.name === ''}
-                                    invalid={errors.name !== ''}
-                                // onBlur={this.handleBlur("firstname")}
-                                />
-                                <FormFeedback>{errors.name}</FormFeedback>
-                            </Col>
-                        </FormGroup>
-                        <FormGroup row >
-                            <Label htmlFor="doB" md={2}>Năm sinh</Label>
-                            <Col md={10}>
-                                <Input type="date" id="doB" name="doB"
-                                    placeholder="1999-11-19"
-                                    value={doB}
-                                    onChange={(e) => setDoB(e.target.value)}
-                                    valid={errors.doB === ''}
-                                    invalid={errors.doB !== ''}
-                                />
-                                <FormFeedback>{errors.doB}</FormFeedback>
-                            </Col>
-                        </FormGroup>
-                        <FormGroup row >
-                            <Label md={2}>Phòng Ban</Label>
-                            <Col md={10}>
-                                <Input type="select" name="department"
-                                    value={department}
-                                    onChange={(e) => setDepartment(e.target.value)}
-                                >
-                                    <option>Chọn...</option>
-                                    <option>Sale</option>
-                                    <option>HR</option>
-                                    <option>Marketing</option>
-                                    <option>IT</option>
-                                    <option>Finance</option>
-                                </Input>
-                            </Col>
-                        </FormGroup>
-                        <FormGroup row >
-                            <Label htmlFor="startDate" md={2}>Ngày bắt đầu</Label>
-                            <Col md={10}>
-                                <Input type="date" id="startDate" name="startDate"
-                                    placeholder="2020-01-15"
-                                    value={startDate}
-                                    onChange={(e) => setStartDate(e.target.value)}
-                                    valid={errors.startDate === ''}
-                                    invalid={errors.startDate !== ''}
-                                />
-                                <FormFeedback>{errors.startDate}</FormFeedback>
-                            </Col>
-                        </FormGroup>
-                        <FormGroup row >
-                            <Label htmlFor="salaryScale" md={2}>Hệ số lương</Label>
-                            <Col md={10}>
-                                <Input type="Number" id="salaryScale" name="salaryScale"
-                                    placeholder="Hệ số lương"
-                                    value={salaryScale}
-                                    onChange={(e) => setSalaryScale(e.target.value)}
-                                    valid={errors.salaryScale === ''}
-                                    invalid={errors.salaryScale !== ''}
-                                />
-                            </Col>
-                        </FormGroup>
+                        <LocalForm onSubmit={(value) => handleSubmit(value)}>
+                            <Row className="form-group">
+                                <Label htmlFor="name" md={2}>Họ và tên</Label>
+                                <Col md={10}>
+                                    <Control.text model=".name" id="name" name="name"
+                                        placeholder="Name..."
+                                        className="form-control"
+                                        validators={{ required, minLength: minLength(5), maxLength: maxLength(15) }}
+                                    />
+                                    <Errors
+                                        className="text-danger"
+                                        model=".name"
+                                        show="touched"
+                                        messages={{
+                                            required: 'Required',
+                                            minLength: 'Must be greater than 5 characters',
+                                            maxLength: 'Must be 15 characters or less'
+                                        }}
+                                    />
+                                </Col>
+                            </Row>
+                            <Row className="form-group">
+                                <Label htmlFor="image" md={2}>Avatar</Label>
+                                <Col md={10}>
+                                    <Control.text model=".image" id="image" name="image"
+                                        className="form-control"
+                                        value= "/assets/images/alberto.png"
+                                    />
+                                </Col>
+                            </Row>
+                            <Row className="form-group">
+                                <Label htmlFor="doB" md={2}>Năm sinh</Label>
+                                <Col md={10}>
+                                    <Control.text model=".doB" id="doB" name="doB"
+                                        placeholder="1999-11-19"
+                                        validators={{ required, minLength: minLength(0), maxLength: maxLength(10) }}
+                                    />
+                                    <Errors
+                                        className="text-danger"
+                                        model=".doB"
+                                        show="touched"
+                                        messages={{
+                                            required: 'Required',
+                                            minLength: 'Must be greater than 0 characters',
+                                            maxLength: 'Must be 10 characters or less'
+                                        }}
+                                    />
+                                </Col>
+                            </Row>
+                            <Row className="form-group">
+                                <Label md={2}>Phòng Ban</Label>
+                                <Col md={10}>
+                                    <Control.select model=".department" name="department"
+                                        className="form-control"
+                                    >
+                                        <option>Chọn...</option>
+                                        <option>Sale</option>
+                                        <option>HR</option>
+                                        <option>Marketing</option>
+                                        <option>IT</option>
+                                        <option>Finance</option>
+                                    </Control.select>
+                                </Col>
+                            </Row>
+                            <Row className="form-group">
+                                <Label htmlFor="startDate" md={2}>Ngày bắt đầu</Label>
+                                <Col md={10}>
+                                    <Control.text model=".startDate" id="startDate" name="startDate"
+                                        placeholder="2020-01-15"
+                                        validators={{ required, minLength: minLength(0), maxLength: maxLength(10) }}
+                                    />
+                                    <Errors
+                                        className="text-danger"
+                                        model=".startDate"
+                                        show="touched"
+                                        messages={{
+                                            required: 'Required',
+                                            minLength: 'Must be greater than 0 characters',
+                                            maxLength: 'Must be 10 characters or less'
+                                        }}
+                                    />
+                                </Col>
+                            </Row>
+                            <Row className="form-group">
+                                <Label htmlFor="salaryScale" md={2}>Hệ số lương</Label>
+                                <Col md={10}>
+                                    <Control.text model=".salaryScale" id="salaryScale" name="salaryScale"
+                                        placeholder="Hệ số lương"
+                                        validators={{ required, minLength: minLength(0), maxLength: maxLength(2) }}
+                                    />
+                                    <Errors
+                                        className="text-danger"
+                                        model=".salaryScale"
+                                        show="touched"
+                                        messages={{
+                                            required: 'Required',
+                                            minLength: 'Must be greater than 0 characters',
+                                            maxLength: 'Must be 2 characters or less'
+                                        }}
+                                    />
+                                </Col>
+                            </Row>
 
-                        <FormGroup row >
-                            <Label htmlFor="annualLeave" md={2}>Số ngày nghỉ</Label>
-                            <Col md={10}>
-                                <Input type="Number" id="annualLeave" name="annualLeave"
-                                    placeholder="Số ngày nghỉ"
-                                    value={annualLeave}
-                                    onChange={(e) => setAnnualLeave(e.target.value)}
-                                    valid={errors.annualLeave === ''}
-                                    invalid={errors.annualLeave !== ''}
-                                />
-                            </Col>
-                        </FormGroup>
+                            <Row className="form-group">
+                                <Label htmlFor="annualLeave" md={2}>Số ngày nghỉ</Label>
+                                <Col md={10}>
+                                    <Control.text model=".annualLeave" id="annualLeave" name="annualLeave"
+                                        placeholder="Số ngày nghỉ"
+                                        validators={{ required, minLength: minLength(0), maxLength: maxLength(2) }}
+                                    />
+                                    <Errors
+                                        className="text-danger"
+                                        model=".annualLeave"
+                                        show="touched"
+                                        messages={{
+                                            required: 'Required',
+                                            minLength: 'Must be greater than 0 characters',
+                                            maxLength: 'Must be 2 characters or less'
+                                        }}
+                                    />
+                                </Col>
+                            </Row>
 
-                        <FormGroup row >
-                            <Label htmlFor="overTime" md={2}>Số ngày làm thêm</Label>
-                            <Col md={10}>
-                                <Input type="Number" id="overTime" name="overTime"
-                                    placeholder="Số ngày làm thêm"
-                                    value={overTime}
-                                    onChange={(e) => setOverTime(e.target.value)}
-                                    valid={errors.overTime === ''}
-                                    invalid={errors.overTime !== ''}
-                                />
-                            </Col>
-                        </FormGroup>
+                            <Row className="form-group">
+                                <Label htmlFor="overTime" md={2}>Số ngày làm thêm</Label>
+                                <Col md={10}>
+                                    <Control.text model=".overTime" id="overTime" name="overTime"
+                                        placeholder="Số ngày làm thêm"
+                                        validators={{ required, minLength: minLength(0), maxLength: maxLength(2) }}
+                                    />
+                                    <Errors
+                                        className="text-danger"
+                                        model=".overTime"
+                                        show="touched"
+                                        messages={{
+                                            required: 'Required',
+                                            minLength: 'Must be greater than 0 characters',
+                                            maxLength: 'Must be 2 characters or less'
+                                        }}
+                                    />
+                                </Col>
+                            </Row>
+                            <Row className="form-group">
+                                <Col md={{size:10, offset: 2}}>
+                                    <Button type="submit" color="primary">
+                                    Tạo mới
+                                    </Button>
+                                </Col>
+                            </Row>
+                        </LocalForm>
                     </ModalBody>
-                    <ModalFooter>
-                        <Button
-                            color="primary"
-                            onClick={handleSubmit}
-                            disabled={!(errors.name === '' && errors.doB === '' && errors.startDate === '' && errors.salaryScale === ''  && errors.annualLeave === '' && errors.overTime === '')}
-                        >
-                            Tạo mới
-                        </Button>
-                        {' '}
-                        <Button onClick={() => setModal(!modal)}>
-                            Hủy
-                        </Button>
-                    </ModalFooter>
                 </Modal>
+
             </div>
         </React.Fragment>
     );
