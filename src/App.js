@@ -27,7 +27,7 @@ function App(props) {
   // Component tìm id được chọn
   const StaffWidthId = (prop) => {
     return (
-      <MenuChiTietNhanVien staff={props.staffs.Staffs.find((staff) => staff.id === prop.staffId)} />
+      <MenuChiTietNhanVien staff={props.staffs.find((staff) => staff.id === prop.staffId)} />
     );
   }
 
@@ -63,8 +63,8 @@ function App(props) {
         <Routes>
           <Route path="/" element={<MenuNhanVien  />} />
           <Route path="/phongban" element={<MenuPhongBan department={department} />} />
-          <Route path="/bangluong" element={<MenuBangLuong staffs={props.staffs.Staffs} />} />
-          {props.staffs.Staffs.map((staff) => {
+          <Route path="/bangluong" element={<MenuBangLuong staffs={props.staffs} />} />
+          {props.staffs.map((staff) => {
             return (
               <Route key={staff.id} path={`/chitietnhanvien/${staff.id}`} element={<StaffWidthId staffId={staff.id} />} />
             )

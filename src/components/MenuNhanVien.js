@@ -1,13 +1,13 @@
 import React from 'react';
 import {
-    Container, Row, Label, FormGroup, Form, Input, Col, Button, FormFeedback
+    Container, Row, Label, FormGroup, Form, Input, Col, Button, FormFeedback, ModalBody, ModalFooter, ModalHeader, Modal
 } from 'reactstrap';
 import { Link } from 'react-router-dom'
 import { useState, useRef } from 'react'
 import { connect } from "react-redux";
-import { Control, Errors, LocalForm } from "react-redux-form"
+// import { Control, Errors, LocalForm } from "react-redux-form"
 
-import { actAddStaff, actSearchStaff, actSetStaff } from '../actions/index'
+import { actAddStaff, actSearchStaff } from '../actions/index'
 
 
 // const required = (val) => val && val.length;
@@ -17,12 +17,19 @@ import { actAddStaff, actSearchStaff, actSetStaff } from '../actions/index'
 
 function MenuNhanvien(props) {
     const SearchInput = useRef(null)
-    const [newStaff, setNewStaff] = useState(props.staffs.newStaff)
-    const idStaff = useRef(props.staffs.Staffs.length)
+    const [modal, setModal] = useState(false)
+    const [name, setName] = useState('')
+    const [doB, setDoB] = useState('')
+    const [salaryScale, setSalaryScale] = useState('')
+    const [startDate, setStartDate] = useState('')
+    const [department, setDepartment] = useState('')
+    const [annualLeave, setAnnualLeave] = useState('')
+    const [overTime, setOverTime] = useState('')
+
 
 
     // List components staff
-    const Staff_list = props.staffs.Staffs.map((staff) => {
+    const Staff_list = props.staffs.map((staff) => {
         return (
             <Col key={staff.id} className="bg-light border" style={{ padding: 5, textAlign: 'center' }} >
                 <Link to={`/chitietnhanvien/${staff.id}`}>
@@ -34,217 +41,93 @@ function MenuNhanvien(props) {
     });
 
 
-    // Hàm xử lý nhấn nút để hiển thị form
-    const ShowForm = () => {
-        document.getElementById('addStaff').style.display = "block";
-        document.getElementById('StaffList').style.opacity = 0.5;
-    }
-
     // Hàm xử lý add
-    const handleSubmit = (event) => {
-        idStaff.current += 1
+    const handleSubmit = () => {
+        const newStaff = {
+            id: props.staffs.length + 1,
+            name: name,
+            doB: doB,
+            salaryScale: salaryScale,
+            startDate: startDate,
+            department: department,
+            annualLeave: annualLeave,
+            overTime: overTime,
+            image: '/assets/images/alberto.png',
+        }
         props.addStaff(newStaff)
         alert("Bạn có chắc chắn muốn thêm?")
-        document.getElementById('addStaff').style.display = "none";
-        document.getElementById('StaffList').style.opacity = 1;
-        event.preventDefault();
+        setModal(!modal)
     }
     console.log("ĐI qua đây")
 
-    // Hàm xử lý khi nhập ô input
-    function handleInputChange(event) {
-        const name = event.target.name
-        const value = event.target.value
-
-        return (setNewStaff({
-            ...newStaff,
-            id: idStaff.current,
-            [name]: value
-        }))
-
-    }
     // Hàm xử lý tìm kiếm
     const handleSearch = () => {
         const searchInp = SearchInput.current.value
-        const result = props.staffs.Staffs.filter((staff) => {
-            return staff.name.indexOf(searchInp.toUpperCase()) !== -1;
+        const input_Upper = searchInp.toUpperCase()
+        // const regex = new RegExp(searchInp);
+        // console.log(searchInp.test("Duy"))
+
+        const result = props.staffs.filter((staff) => {
+            return staff.name.toUpperCase().indexOf(input_Upper) !== -1
         })
         props.searchStaff(result)
+        console.log(input_Upper)
+        console.log(result)
     }
 
-    
-    
-    // Component addStaff
-    function AddStaffs()  {
-        const validate = (name, doB, startDate) => {
-            const errors = {
-                name: '',
-                doB: '',
-                startDate: ''
-            };
-            const reg = "1234567890-";
-            let isFalsedoB = false;
-            let isFalsestartDate = false;
-            for (let i = 0; i < doB.length; i++) {
-                if (reg.indexOf(doB.split("")[i]) === -1) {
-                    isFalsedoB = true;
-     
-                }
-            }
-            for (let i = 0; i < startDate.length; i++) {
-                if (reg.indexOf(startDate.split("")[i]) === -1) {
-                    isFalsestartDate = true;
-            
-                }
-            }
-            if (name.length < 5) {
-                errors.name = 'Name should be >= 5 characters';
-                
-            }
-            else if (name.length > 20) {
-                errors.name = 'Name should be <= 20 characters';
-                
-            }
-    
-    
-            if (isFalsedoB === true) {
-                errors.doB = 'Year of Birth should be number';
-              
-            }
-            else if (doB.length !== 10) {
-                errors.doB = 'Year of Birth should be = 10 characters';
-                
-            }
-    
-            if (isFalsestartDate === true) {
-                errors.startDate = 'startDate should be number';
-                
-            }
-            else if (startDate.length !== 10) {
-                errors.startDate = 'startDate should be = 10 characters';
-               
-            }
-    
-            return errors;
+
+    const validate = (name, doB, startDate, salaryScale, annualLeave, overTime) => {
+        const errors = {
+            name: '',
+            doB: '',
+            startDate: '',
+            salaryScale: '',
+            annualLeave: '',
+            overTime: ''
+        };
+        if (name.length < 5) {
+            errors.name = 'Name should be >= 5 characters';
+
         }
-        const errors = validate(newStaff.name, newStaff.doB, newStaff.startDate);
-        return (
-            <Form onSubmit={handleSubmit}>
-                <h2>Thêm nhân viên mới</h2>
-                <FormGroup row >
-                    <Label htmlFor="name" md={2}>Họ và tên</Label>
-                    <Col md={10}>
-                        <Input type="name" id="name" name="name"
-                            placeholder="Name..."
-                            value={newStaff.name}
-                            onChange={handleInputChange}
-                            valid={errors.name === ''}
-                            invalid={errors.name !== ''}
-                        // onBlur={this.handleBlur("firstname")}
-                        />
-                        <FormFeedback>{errors.name}</FormFeedback>
-                    </Col>
-                </FormGroup>
-                <FormGroup row >
-                    <Label htmlFor="doB" md={2}>Năm sinh</Label>
-                    <Col md={10}>
-                        <Input type="doB" id="doB" name="doB"
-                            placeholder="1999-11-19"
-                            value={newStaff.doB}
-                            onChange={handleInputChange}
-                            valid={errors.doB === ''}
-                            invalid={errors.doB !== ''}
-                        // onBlur={this.handleBlur("firstname")}
-                        />
-                        <FormFeedback>{errors.doB}</FormFeedback>
-                    </Col>
-                </FormGroup>
+        else if (name.length > 20) {
+            errors.name = 'Name should be <= 20 characters';
 
-                <FormGroup row >
-                    <Label md={2}>Phòng Ban</Label>
-                    <Col md={10}>
-                        <Input type="select" name="department"
-                            value={newStaff.department}
-                            onChange={handleInputChange}
-                        >
-                            <option>Sale</option>
-                            <option>HR</option>
-                            <option>Marketing</option>
-                            <option>IT</option>
-                            <option>Finance</option>
-                        </Input>
-                    </Col>
-                </FormGroup>
+        }
 
-                <FormGroup row >
-                    <Label htmlFor="startDate" md={2}>Ngày bắt đầu</Label>
-                    <Col md={10}>
-                        <Input type="startDate" id="startDate" name="startDate"
-                            placeholder="2020-01-15"
-                            value={newStaff.startDate}
-                            onChange={handleInputChange}
-                            valid={errors.startDate === ''}
-                            invalid={errors.startDate !== ''}
-                        // onBlur={this.handleBlur("firstname")}
-                        />
-                        <FormFeedback>{errors.startDate}</FormFeedback>
-                    </Col>
-                </FormGroup>
 
-                <FormGroup row >
-                    <Label htmlFor="salaryScale" md={2}>Hệ số lương</Label>
-                    <Col md={10}>
-                        <Input type="Number" id="salaryScale" name="salaryScale"
-                            placeholder="Hệ số lương"
-                            value={newStaff.salaryScale}
-                            onChange={handleInputChange}
-                        // onBlur={this.handleBlur("firstname")}
-                        />
-                        {/* <FormFeedback>{errors.firstname}</FormFeedback> */}
-                    </Col>
-                </FormGroup>
+        if (doB.length === 0) {
+            errors.doB = 'Year of Birth should be > 0 characters';
 
-                <FormGroup row >
-                    <Label htmlFor="annualLeave" md={2}>Số ngày nghỉ</Label>
-                    <Col md={10}>
-                        <Input type="Number" id="annualLeave" name="annualLeave"
-                            placeholder="Số ngày nghỉ"
-                            value={newStaff.annualLeave}
-                            onChange={handleInputChange}
-                        // onBlur={this.handleBlur("firstname")}
-                        />
-                        {/* <FormFeedback>{errors.firstname}</FormFeedback> */}
-                    </Col>
-                </FormGroup>
+        }
 
-                <FormGroup row >
-                    <Label htmlFor="overTime" md={2}>Số ngày làm thêm</Label>
-                    <Col md={10}>
-                        <Input type="Number" id="overTime" name="overTime"
-                            placeholder="Số ngày làm thêm"
-                            value={newStaff.overTime}
-                            onChange={handleInputChange}
-                        // onBlur={this.handleBlur("firstname")}
-                        />
-                        {/* <FormFeedback>{errors.firstname}</FormFeedback> */}
-                    </Col>
-                </FormGroup>
-                <FormGroup row>
-                    <Col md={{ size: 10, offset: 2 }}>
-                        {(errors.name === '' && errors.doB === '' && errors.startDate === '') && <Button type= "submit" id="BtCreate" style={{ marginLeft: 180 }}  color="primary" disabled="" >
-                            Tạo mới
-                        </Button>}
-                    </Col>
-                </FormGroup>
-            </Form>
-        )
+        if (startDate.length === 0) {
+            errors.startDate = 'Year of Birth should be > 0 characters';
+
+        }
+
+        if (salaryScale.length === 0) {
+            errors.salaryScale = 'salaryScale should be > 0 characters';
+
+        }
+        if (annualLeave.length === 0) {
+            errors.annualLeave = 'annualLeave should be > 0 characters';
+
+        }
+        if (overTime.length === 0) {
+            errors.overTime = 'overTime should be > 0 characters';
+
+        }
+
+
+        return errors;
     }
+
+    const errors = validate(name, doB, startDate, salaryScale, annualLeave, overTime);
 
     return (
         <React.Fragment>
             <div id="StaffList">
                 <h3 style={{ marginLeft: 100 }}>Nhân Viên</h3>
-                <button style={{ backgroundColor: "gray", position: 'absolute', top: 80, left: 240 }} onClick={ShowForm}><i className="fa fa-plus-square" style={{ fontSize: 24 }}></i></button>
                 <div style={{ position: 'absolute', top: 90, right: 100 }}>
                     <i className="fa fa-search" style={{ fontSize: 24 }}></i>
                     <input type="text" placeholder="Nhập..."
@@ -259,14 +142,133 @@ function MenuNhanvien(props) {
                     </Row>
                 </Container>
             </div>
-            <div id="addStaff" style={{ width: "50%", position: "absolute", top: "150px", left: "350px", backgroundColor: "gray", display: "none" }}>
-                <AddStaffs />
+            <div>
+                <Button
+                    style={{ position: 'absolute', top: 80, left: 240 }}
+                    onClick={() => setModal(!modal)}
+                >
+                    <i className="fa fa-plus-square" style={{ fontSize: 24 }}></i>
+                </Button>
+                <Modal
+                    isOpen={modal}
+                // toggle={() => setModal(!modal)}
+                >
+                    <ModalHeader toggle={() => setModal(!modal)}>
+                        Thêm nhân viên mới
+                    </ModalHeader>
+                    <ModalBody>
+                        <FormGroup row >
+                            <Label htmlFor="name" md={2}>Họ và tên</Label>
+                            <Col md={10}>
+                                <Input type="name" id="name" name="name"
+                                    placeholder="Name..."
+                                    value={name}
+                                    onChange={(e) => setName(e.target.value)}
+                                    valid={errors.name === ''}
+                                    invalid={errors.name !== ''}
+                                // onBlur={this.handleBlur("firstname")}
+                                />
+                                <FormFeedback>{errors.name}</FormFeedback>
+                            </Col>
+                        </FormGroup>
+                        <FormGroup row >
+                            <Label htmlFor="doB" md={2}>Năm sinh</Label>
+                            <Col md={10}>
+                                <Input type="date" id="doB" name="doB"
+                                    placeholder="1999-11-19"
+                                    value={doB}
+                                    onChange={(e) => setDoB(e.target.value)}
+                                    valid={errors.doB === ''}
+                                    invalid={errors.doB !== ''}
+                                />
+                                <FormFeedback>{errors.doB}</FormFeedback>
+                            </Col>
+                        </FormGroup>
+                        <FormGroup row >
+                            <Label md={2}>Phòng Ban</Label>
+                            <Col md={10}>
+                                <Input type="select" name="department"
+                                    value={department}
+                                    onChange={(e) => setDepartment(e.target.value)}
+                                >
+                                    <option>Chọn...</option>
+                                    <option>Sale</option>
+                                    <option>HR</option>
+                                    <option>Marketing</option>
+                                    <option>IT</option>
+                                    <option>Finance</option>
+                                </Input>
+                            </Col>
+                        </FormGroup>
+                        <FormGroup row >
+                            <Label htmlFor="startDate" md={2}>Ngày bắt đầu</Label>
+                            <Col md={10}>
+                                <Input type="date" id="startDate" name="startDate"
+                                    placeholder="2020-01-15"
+                                    value={startDate}
+                                    onChange={(e) => setStartDate(e.target.value)}
+                                    valid={errors.startDate === ''}
+                                    invalid={errors.startDate !== ''}
+                                />
+                                <FormFeedback>{errors.startDate}</FormFeedback>
+                            </Col>
+                        </FormGroup>
+                        <FormGroup row >
+                            <Label htmlFor="salaryScale" md={2}>Hệ số lương</Label>
+                            <Col md={10}>
+                                <Input type="Number" id="salaryScale" name="salaryScale"
+                                    placeholder="Hệ số lương"
+                                    value={salaryScale}
+                                    onChange={(e) => setSalaryScale(e.target.value)}
+                                    valid={errors.salaryScale === ''}
+                                    invalid={errors.salaryScale !== ''}
+                                />
+                            </Col>
+                        </FormGroup>
+
+                        <FormGroup row >
+                            <Label htmlFor="annualLeave" md={2}>Số ngày nghỉ</Label>
+                            <Col md={10}>
+                                <Input type="Number" id="annualLeave" name="annualLeave"
+                                    placeholder="Số ngày nghỉ"
+                                    value={annualLeave}
+                                    onChange={(e) => setAnnualLeave(e.target.value)}
+                                    valid={errors.annualLeave === ''}
+                                    invalid={errors.annualLeave !== ''}
+                                />
+                            </Col>
+                        </FormGroup>
+
+                        <FormGroup row >
+                            <Label htmlFor="overTime" md={2}>Số ngày làm thêm</Label>
+                            <Col md={10}>
+                                <Input type="Number" id="overTime" name="overTime"
+                                    placeholder="Số ngày làm thêm"
+                                    value={overTime}
+                                    onChange={(e) => setOverTime(e.target.value)}
+                                    valid={errors.overTime === ''}
+                                    invalid={errors.overTime !== ''}
+                                />
+                            </Col>
+                        </FormGroup>
+                    </ModalBody>
+                    <ModalFooter>
+                        <Button
+                            color="primary"
+                            onClick={handleSubmit}
+                            disabled={!(errors.name === '' && errors.doB === '' && errors.startDate === '' && errors.salaryScale === ''  && errors.annualLeave === '' && errors.overTime === '')}
+                        >
+                            Tạo mới
+                        </Button>
+                        {' '}
+                        <Button onClick={() => setModal(!modal)}>
+                            Hủy
+                        </Button>
+                    </ModalFooter>
+                </Modal>
             </div>
-
         </React.Fragment>
-
     );
-
 }
 
 const mapStateToProps = (state, ownProps) => {
@@ -283,12 +285,8 @@ const mapDispatchToProps = (dispatch) => {
         },
         searchStaff: (content) => {
             dispatch(actSearchStaff(content));
-        },
-        setStaff: (name, value) => {
-            dispatch(actSetStaff(name, value));
         }
     };
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(MenuNhanvien);
-

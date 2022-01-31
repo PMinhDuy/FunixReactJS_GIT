@@ -7,6 +7,7 @@ import {
 
 function MenuChiTietNhanVien(props) {
     console.log(props.staff.department.name)
+    console.log(props.staff.department)
     // Component chi tiết nhân viên
     const DetailStaff = (() => {
         return (

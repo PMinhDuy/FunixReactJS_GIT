@@ -1,4 +1,4 @@
-import {ADD_NEW_STAFF, SEARCH_STAFF, SET_STAFF} from '../const/index';
+import {ADD_NEW_STAFF, SEARCH_STAFF} from '../const/index';
 
 
 export const actAddStaff = (payload) => {
@@ -8,13 +8,6 @@ export const actAddStaff = (payload) => {
     })
 }
 
-export const actSetStaff = (name, value) => {
-    return({
-        type: SET_STAFF,
-        name, 
-        value
-    })
-}
 
 export const actSearchStaff = (payload) => {
     return({
