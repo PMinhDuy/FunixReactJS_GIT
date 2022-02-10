@@ -3,7 +3,8 @@ import { Navbar, NavbarBrand } from 'reactstrap';
 import Menu from './MenuComponent';
 import DishDetail from './DishdetailComponent ';
 import { DISHES } from '../shares/dishes';
-import { Routes, Route, Redirect, Link } from 'react-router-dom';
+import { Routes, Route, Link, withRouter } from 'react-router-dom';
+import { connect } from 'react-redux';
 
 import Header from './HeaderComponent';
 import Footer from './FooterComponent';
@@ -12,6 +13,17 @@ import Contact from './ContactComponent';
 import { COMMENTS } from '../shares/comments';
 import { PROMOTIONS } from '../shares/promotions';
 import { LEADERS } from '../shares/leaders';
+
+
+const mapStateToProps = state => {
+  return {
+    dishes: state.dishes,
+    comments: state.comments,
+    promotions: state.promotions,
+    leaders: state.leaders
+  }
+}
+
 
 class Main extends Component {
 
@@ -25,9 +37,6 @@ class Main extends Component {
     };
   }
 
-  onDishSelect(dishId) {
-    this.setState({ selectedDish: dishId });
-  }
 
   render() {
     const HomePage = () => {
@@ -40,11 +49,11 @@ class Main extends Component {
       );
     }
 
-    const DishWithId = ({dishWithId}) => {
+    const DishWithId = ({ dishWithId }) => {
       console.log(dishWithId);
-      return(
-          <DishDetail dish={this.state.dishes.filter((dish) => dish.id === dishWithId)} 
-            comments={this.state.comments.filter((comment) => comment.dishId === dishWithId)} />
+      return (
+        <DishDetail dish={this.state.dishes.filter((dish) => dish.id === dishWithId)}
+          comments={this.state.comments.filter((comment) => comment.dishId === dishWithId)} />
       );
     };
 
@@ -53,15 +62,15 @@ class Main extends Component {
         <Header />
         <Routes>
           <Route path='/home' element={<HomePage />} />
-          <Route path='/menu' element={<Menu dishes={this.state.dishes}  />} />
+          <Route path='/menu' element={<Menu dishes={this.state.dishes} />} />
           {this.state.dishes.map((dish) => {
-            return(
-              <Route path={`/menu/${dish.id}`} element={<DishWithId dishWithId = {dish.id} />} />
+            return (
+              <Route path={`/menu/${dish.id}`} element={<DishWithId dishWithId={dish.id} />} />
             )
-          }) }
+          })}
           <Route path='/contactus' element={<Contact />} />
         </Routes>
-        
+        <Footer />
       </>
 
 
@@ -69,4 +78,4 @@ class Main extends Component {
   }
 }
 
-export default Main;
+export default connect(mapStateToProps)(Main);
