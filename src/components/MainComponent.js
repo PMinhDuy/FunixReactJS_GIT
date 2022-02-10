@@ -40,8 +40,13 @@ class Main extends Component {
       );
     }
 
-
-
+    const DishWithId = ({dishWithId}) => {
+      console.log(dishWithId);
+      return(
+          <DishDetail dish={this.state.dishes.filter((dish) => dish.id === dishWithId)} 
+            comments={this.state.comments.filter((comment) => comment.dishId === dishWithId)} />
+      );
+    };
 
     return (
       <>
@@ -49,9 +54,14 @@ class Main extends Component {
         <Routes>
           <Route path='/home' element={<HomePage />} />
           <Route path='/menu' element={<Menu dishes={this.state.dishes}  />} />
+          {this.state.dishes.map((dish) => {
+            return(
+              <Route path={`/menu/${dish.id}`} element={<DishWithId dishWithId = {dish.id} />} />
+            )
+          }) }
           <Route path='/contactus' element={<Contact />} />
         </Routes>
-        <DishDetail dish={this.state.dishes.filter((dish) => dish.id === this.state.selectedDish)} />
+        
       </>
 
 
