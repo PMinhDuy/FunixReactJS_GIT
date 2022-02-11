@@ -3,12 +3,13 @@ import {
     Breadcrumb, BreadcrumbItem,
     Button, Row, Col, Label
 } from 'reactstrap';
-import { Control, LocalForm, Errors } from 'react-redux-form';
+import { Control, Form, Errors, actions } from 'react-redux-form';
 
 function Contact(props) {
     function handleSubmit(values) {
         console.log('Current State is: ' + JSON.stringify(values));
         alert('Current State is: ' + JSON.stringify(values));
+        props.resetFeedbackForm();
         // event.preventDefault();
     }
 
@@ -46,7 +47,7 @@ function Contact(props) {
                 </div>
             </div>
 
-            <LocalForm onSubmit={(values) => handleSubmit(values)}>
+            <Form model="feedback" onSubmit={(values) => handleSubmit(values)}>
                 <Row className="form-group">
                     <Label htmlFor="firstname" md={2}>First Name</Label>
                     <Col md={10}>
@@ -136,13 +137,41 @@ function Contact(props) {
                     </Col>
                 </Row>
                 <Row className="form-group">
+                    <Col md={10}>
+                        <div className="form-check">
+                            <Label check>
+                                <Control.checkbox model=".check" id="check" name="check"
+                                    className="form-check"
+                                /> {' '}
+                                <strong>May we contact you?</strong>
+                            </Label>
+                        </div>
+                    </Col>
+                    <Col md={10}>
+                        <Control.select model=".contactType" id="contactType" name="contactType"
+                            className="form-control">
+                            <option>Tel.</option>
+                            <option>Email</option>
+                        </Control.select>
+                    </Col>
+                </Row>
+                <Row className="form-group">
+                    <Label htmlFor="message" md={2}>Your Feedback</Label>
+                    <Col md={10}>
+                        <Control.textarea model=".message" id="message" name="message"
+                            rows="12"
+                            className="form-control"
+                        />
+                    </Col>
+                </Row>
+                <Row className="form-group">
                     <Col md={{ size: 10, offset: 2 }}>
                         <Button type="submit" color="primary">
                             Send Feedback
                         </Button>
                     </Col>
                 </Row>
-            </LocalForm>
+            </Form>
 
         </div>
     );
