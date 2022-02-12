@@ -1,4 +1,4 @@
-import { Nav, Navbar, NavbarBrand, NavbarToggler, Collapse, NavItem, Jumbotron } from 'reactstrap';
+import { Nav, Navbar, NavbarBrand, NavbarToggler, Collapse, NavItem, Jumbotron, DropdownItem, NavbarText, DropdownMenu, DropdownToggle, UncontrolledDropdown } from 'reactstrap';
 import { NavLink } from 'react-router-dom';
 import React, { Component } from 'react';
 
@@ -21,8 +21,8 @@ class Header extends Component {
   render() {
     return (
       <div>
-        <Navbar dark expand="md">
-          <div className="container">
+        <Navbar dark expand="md" >
+          <div className="container" >
             <NavbarToggler onClick={this.toggleNav} />
             <NavbarBrand className="mr-auto" href="/"><img src='assets/images/logo.png' height="30" width="41" alt='Ristorante Con Fusion' /></NavbarBrand>
             <Collapse isOpen={this.state.isNavOpen} navbar>
@@ -51,6 +51,7 @@ class Header extends Component {
               </div>
             </div>
           </div>
+
       </div>
     );
   }

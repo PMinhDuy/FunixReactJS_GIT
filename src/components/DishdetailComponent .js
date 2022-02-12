@@ -6,7 +6,7 @@ import React from 'react';
 import { Control, LocalForm, Errors } from 'react-redux-form';
 import { Link } from 'react-router-dom';
 import { Loading } from './LoadingComponent';
-
+import { baseUrl } from '../shares/baseUrl';
 
 const required = (val) => val && val.length;
 const maxLength = (len) => (val) => !(val) || (val.length <= len);
@@ -17,7 +17,7 @@ function RenderDish({ dish }) {
         return (
             <div key={dish.id}>
                 <h1>Comments</h1>
-                <img src={dish.image} alt="dang tai xuong" />
+                <img src={baseUrl +"/"+ dish.image} alt="dang tai xuong" />
             </div>
         )
     })
