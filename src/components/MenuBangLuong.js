@@ -5,37 +5,60 @@ import {
 import {
     Link
 } from "react-router-dom";
+import { FadeTransform } from 'react-animation-components';
 
-
-function MenuBangLuong(props) {
+function MenuBangLuong({ stateSalary, stateLoadSalary }) {
     const basicSalary = 3000000;
     const overTimeSalary = 200000;
-    console.log("menubangluong")
+
+    const RenderSalaryList = () => {
+        if (stateLoadSalary) {
+            return (
+                <div className="col-12" >
+                    <span className="fa fa-spinner fa-pulse fa-3x fa-fw text-primary"></span>
+                    <p>Loading . . .</p>
+                </div>
+            )
+        }
+        else {
+            return (
+                Salary_list
+            )
+        }
+    }
+
     // List Component bảng lương
-    const Salary_list = props.staffs.map((sta) => {
-        return(
-            <Col key={sta.id} className="bg-light border" style={{padding: 5, textAlign: 'center'}} >
-                    <h1>{sta.name}</h1>
-                    <p>Mã nhân viên: {sta.id}</p>
-                    <p>Hệ số lương: {sta.salaryScale}</p>
-                    <p>Số giờ làm thêm: {sta.overTime}</p>
-                    <p style={{backgroundColor: "gray"}}>Lương: {(sta.salaryScale * basicSalary) + (sta.overTime * overTimeSalary)}</p>
+    const Salary_list = stateSalary.map((sal) => {
+        return (
+            <FadeTransform
+                in
+                transformProps={{
+                    exitTransform: 'scale(0.5) translateY(-50%)'
+                }}>
+                <Col key={sal.id} className="bg-light border" style={{ padding: 5, textAlign: 'center' }} >
+                    <h1>{sal.name}</h1>
+                    <p>Mã nhân viên: {sal.id}</p>
+                    <p>Hệ số lương: {sal.salaryScale}</p>
+                    <p>Số giờ làm thêm: {sal.overTime}</p>
+                    <p style={{ backgroundColor: "gray" }}>Lương: {(sal.salaryScale * basicSalary) + (sal.overTime * overTimeSalary)}</p>
                 </Col>
+            </FadeTransform>
         )
     })
 
-    return(
-        <React.Fragment> 
-            <h5 style={{marginLeft: 100}}>
-            <Link to="/">Nhân Viên </Link> / Bảng Lương
+    return (
+        <React.Fragment>
+            <h5 style={{ marginLeft: 100 }}>
+                <Link to="/">Nhân Viên </Link> / Bảng Lương
             </h5>
-        <Container style={{marginTop: 20}}>
-            <Row xs="1" sm="2" md="3">
-                {Salary_list}
-            </Row>
-        </Container>
-    </React.Fragment>
+            <Container style={{ marginTop: 20 }}>
+                <Row xs="1" sm="2" md="3">
+                    <RenderSalaryList />
+                </Row>
+            </Container>
+        </React.Fragment>
     )
 }
+
 
 export default MenuBangLuong

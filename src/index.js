@@ -9,13 +9,12 @@ import {
 } from "react-router-dom";
 
 import { Provider } from "react-redux";
-import { createStore } from "redux";
 
 // Gọi reducers
-import reducers from './reducers/index'
+import { ConfigureStore } from './reducers/configureStore';
 
 // Tạo store từ reducers
-const store = createStore(reducers)
+const store = ConfigureStore()
 
 ReactDOM.render(
   <React.StrictMode>

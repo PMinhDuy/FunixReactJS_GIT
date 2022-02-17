@@ -43,8 +43,7 @@ ul li {
 }
 .footer{
   background-color: #0cccf4; 
-  height: 350px;
-  position: relative;
+  /* position: relative; */
 }
 .footer_text{
   font-size: 13px;
