@@ -139,18 +139,18 @@ function MenuNhanvien({ stateStaffs, stateLoadStaff, dispatchAddStaff, dispatchS
     const Staff_list = stateStaffs.map((staff) => {
         return (
             <FadeTransform
-            in
-            transformProps={{
-                exitTransform: 'scale(0.5) translateY(-50%)'
-            }}>
-            <Col key={staff.id} className="bg-light border" style={{ padding: 5, textAlign: 'center' }} >
-                <Link to={`/chitietnhanvien/${staff.id}`}>
-                    <img style={{ width: "100%" }} src={staff.image === undefined ? "/asset/images/alberto.png" : staff.image} alt="hinh anh" />
-                </Link>
-                <p>{staff.name}</p>
-                <button style={{ backgroundColor: 'green', color: 'white' }} onClick={() => handleUpdateForm(staff.id)} >Update</button>
-                <button style={{ backgroundColor: 'red', color: 'white' }} onClick={() => { dispatchDeleteStaff(staff.id) }} >Delete</button>
-            </Col>
+                in
+                transformProps={{
+                    exitTransform: 'scale(0.5) translateY(-50%)'
+                }}>
+                <Col key={staff.id} className="bg-light border" style={{ padding: 5, textAlign: 'center' }} >
+                    <Link to={`/chitietnhanvien/${staff.id}`}>
+                        <img style={{ width: "100%" }} src={staff.image === undefined ? "/asset/images/alberto.png" : staff.image} alt="hinh anh" />
+                    </Link>
+                    <p>{staff.name}</p>
+                    <button style={{ backgroundColor: 'green', color: 'white' }} onClick={() => handleUpdateForm(staff.id)} >Update</button>
+                    <button style={{ backgroundColor: 'red', color: 'white' }} onClick={() => { dispatchDeleteStaff(staff.id) }} >Delete</button>
+                </Col>
             </FadeTransform>
         )
     });
@@ -200,12 +200,7 @@ function MenuNhanvien({ stateStaffs, stateLoadStaff, dispatchAddStaff, dispatchS
     const Form = () => {
         return (
             <div>
-                <Button
-                    style={{ position: 'absolute', top: 80, left: 240 }}
-                    onClick={() => setModal(!modal)}
-                >
-                    <i className="fa fa-plus-square" style={{ fontSize: 24 }}></i>
-                </Button>
+
                 <Modal
                     isOpen={modal}
                 // toggle={() => setModal(!modal)}
@@ -390,11 +385,23 @@ function MenuNhanvien({ stateStaffs, stateLoadStaff, dispatchAddStaff, dispatchS
                 <hr style={{ width: "85%", marginLeft: 100 }} />
                 <Container style={{ marginTop: 20 }}>
                     <Row xs="1" sm="2" md="6">
-                            <RenderStaffList />
+                        <RenderStaffList />
                     </Row>
                 </Container>
             </div>
-            <Form />
+            <Button
+                style={{ position: 'absolute', top: 80, left: 240 }}
+                onClick={() => setModal(!modal)}
+            >
+                <i className="fa fa-plus-square" style={{ fontSize: 24 }}></i>
+            </Button>
+            <FadeTransform
+                in
+                transformProps={{
+                    exitTransform: 'scale(0.5) translateY(-50%)'
+                }}>
+                <Form />
+            </FadeTransform>
             <FormEdit />
         </React.Fragment>
     );

@@ -18,11 +18,6 @@ import MenuChiTietNhanVien from './components/MenuChiTietNhanVien';
 import DetailDepartment from "./components/DetailDepartment"
 
 
-// import {  } from "../reducers/ActionCreators"
-
-// Component App
-
-
 function App(props) {
   const stateStaffs = useSelector((state) => state.staffs.staffs)
   const stateDepartments = useSelector((state) => state.departments.departments)
@@ -85,7 +80,7 @@ function App(props) {
       </Navbar>
     )
   }
-
+console.log("Toi dang test")
   // Component content 
   const Content = () => {
     return (
@@ -103,6 +98,7 @@ function App(props) {
             <Route key={department.id} path={`/chitietphongban/${department.id}`} element={<DepartmentWidthId departmentId={department.id} />} />
           )
         })}
+        
       </Routes>
     )
   }
