@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My News</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+</head>
+
+<body>
+    <div class="loader"></div>
+    <div id="banner">
+        <h1 id="showSearch">My News <i class="fa fa-search"></i></h1>
+    </div>
+    <div class="box">
+        <div class="container-1">
+            <span> <b>Search by Keywords</b> </span>
+            <input type="search" id="search" placeholder="Search..." />
+            
+            <button id="close">Đóng</button>
+        </div>
+        <div>
+            <label for="start">Start date:</label>
+            <input type="date" id="start" name="trip-start" value="2021-12-21" min="2021-01-01" max="2021-12-31">
+            <label for="end">End date:</label>
+            <input type="date" id="end" name="trip-end" value="2021-12-21" min="2021-01-01" max="2021-12-31">
+            <button type="submit" id="btSearch">Search</button>
+        </div>
+    </div>
+    <div id="json"></div>
+    <script type="text/javascript" src="main.js"></script>
+</body>
+
+</html>
