@@ -1,0 +1,246 @@
+@media only screen and (min-width: 992px) {
+    body{
+        width: 100%;
+        /* margin: auto; */
+        height: auto;
+    }
+    #menu{
+        width: 100%;
+        height: 70px;
+        background-color: #8dc700;
+    }
+    ul{
+        padding-top: 15px;
+        margin-bottom: 10px;
+    }
+    #menu ul li{
+        display: inline;
+        margin-right: 30px;     
+    }
+    #menu ul li a{ 
+        text-decoration: none;  
+        font-family: 'Work Sans', sans-serif;  
+        color: white;
+        font-size: 25px;
+    }
+    #menu ul li:first-of-type{
+        margin-left: 2%;
+    }
+    #menu ul li:nth-of-type(2){
+        margin-left: 30%;
+    }
+    #banner{
+        /* position: relative; */
+        height: 600px;
+        width: 100%;
+        background-image: url(img/banner_QN.jpg);
+        background-repeat: no-repeat;
+    }
+    #banner h1{
+        padding: 8% 0 0 35%;
+        color: white;
+        margin: auto;
+        color: #b0f10c;
+        font-size: 3em; 
+    }
+    #banner p{
+        padding: 0 0 0 25%;
+        margin: auto;
+        color: white;
+        font-size: 50px; 
+    }
+    #banner select{
+        position: relative;
+        padding: 1.5% 8%;
+        margin-top: 5%;
+        border: solid;
+        border-width: 1em;
+        border-color: rgba(134, 134, 134, 0.829);
+        font-size: 1.2em;
+    }
+    #banner span{
+        padding-left: 12%;
+        margin: auto;
+    }
+    #banner button{
+        position: relative;
+        padding: 1.5% 4%;
+        margin-top: 5%;
+        background-color: #8dc700;
+        color: white;
+        border: solid;
+        border-width: 1em;
+        border-color: rgba(134, 134, 134, 0.829);
+        font-size: 1.2em;
+    }
+    #banner b{
+        width: 100%;
+        height: auto;
+        position: relative;
+        animation-name: BNQN;
+        animation-duration: 1s;
+        animation-iteration-count: infinite;
+      }
+      
+      @keyframes BNQN {
+        0%   {top:0px;}
+        50%  {top:-30px;}
+        100% {top:0px;}
+      }
+    #content{
+        background-color: #efefef;
+        width: 100%;
+    }
+    #content #col_giatri{
+        width: 100%;
+        display: flex;
+        flex-wrap: wrap;
+        /* margin-left: 6%; */
+    }
+    #content #col_giatri div.col{
+        width: 32.7%;
+
+    } 
+    #content #col_giatri div.col-1 {
+        background-image: linear-gradient(to right, #8dc700, white);
+    } 
+    #content #col_giatri div.col-2 {
+        background-image: linear-gradient(to right, #8dc700, white);
+    } 
+    #content #col_giatri div.col-3 {
+        background-image: linear-gradient(to right, #8dc700, white);
+    } 
+    #content #col_giatri h1, p{
+        text-align: center;
+    }
+    #content #col_giatri p{
+        font-size: 20px;
+        color: rgb(75, 75, 80);
+    }
+    #secsion{
+        width: 100%;
+        display: flex; 
+        flex-wrap: wrap;
+    }
+    #secsion div.col{
+        width: 50%;
+        margin: auto;
+    }
+    #secsion div.col1{
+        margin: auto;
+        text-align: center;
+    }
+    #secsion div.col1 p{
+        font-size: 19px;
+    }
+    
+    #secsion div.col1 h3,p{
+        padding: 0px 20px;
+    }
+    #secsion div.col2{
+        width: 100%;
+        display: flex; 
+        flex-wrap: wrap;
+        border: solid 1px rgb(168, 162, 162);
+    }
+    #secsion div.col img{
+        width: 100%;
+    }
+    #secsion div.col2 div.col-4{
+        width: 31%;
+        margin: 2px 0px 2px 2px;
+        padding: 1px 0px 1px 2px;
+        /* border: solid; */
+    }
+    #diadiem{
+        width: 100%;
+        margin: auto;
+        display: flex; 
+        flex-wrap: wrap;
+    }
+    #diadiem div.row1{
+        width: 50%;
+    }
+    #diadiem div.row2{
+        width: 100%;
+        margin: auto;
+        display: flex; 
+        flex-wrap: wrap;
+    }
+    #diadiem div.row2 div.col-4{
+        width: 32%;
+        margin: auto;
+    }
+    #diadiem div.row1 h1{
+        padding-left: 20px;
+    }
+    #diadiem div.row1 p{
+        text-align: left;
+        font-size: 19px;
+    }
+    #diadiem div.row2 div.colim img{
+        width: 100%;
+    }
+    #footer{
+        background-color: #f7f7f7;
+        width: 90%;
+        display: flex;
+        flex-wrap: wrap;
+        padding: 2% 5.5%;
+    }
+    #footer div.col-12{
+        width: 31.5%;  
+        margin-right: 18px;
+    }
+    #footer div.col-12 a{
+        color: #11abf3;
+        text-decoration: none;
+        padding-left: 20px;
+    }
+    #footer div.col-12 p{
+        text-align: left;
+    }
+    #footer div.col-12 h3{
+        padding-left: 20px;
+    }
+/* Tranimation */
+    .container-image {
+        position: relative;
+        width: 100%;
+      }
+      
+      .image {
+        display: block;
+        width: 100%;
+        height: auto;
+      }
+      
+      .overlay {
+        position: absolute;
+        top: 20;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        height: 30%;
+        width: 20%;
+        opacity: 0;
+        transition: .5s ease;
+        background-color: #8dc700;
+      }
+      
+      .container-image:hover .overlay {
+        opacity: 1;
+      }
+      
+      .text {
+        color: white;
+        font-size: 20px;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        -webkit-transform: translate(-50%, -50%);
+        -ms-transform: translate(-50%, -50%);
+        transform: translate(-50%, -50%);
+        text-align: center;
+      }
+}
