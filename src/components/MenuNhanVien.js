@@ -18,7 +18,6 @@ function MenuNhanvien({ stateStaffs, stateLoadStaff, dispatchAddStaff, dispatchS
 
 
     const handleUpdate = (value) => {
-        console.log(value)
         dispatchUpdateStaff(idUpdate, JSON.stringify(value))
         setFormEdit(!formEdit)
     }
@@ -173,8 +172,6 @@ function MenuNhanvien({ stateStaffs, stateLoadStaff, dispatchAddStaff, dispatchS
 
     // Hàm xử lý add
     const handleSubmit = (value) => {
-        console.log(value)
-        // }
         dispatchAddStaff(value)
         alert("Bạn có chắc chắn muốn thêm?")
         setModal(!modal)
@@ -188,8 +185,6 @@ function MenuNhanvien({ stateStaffs, stateLoadStaff, dispatchAddStaff, dispatchS
             return staff.name.toUpperCase().indexOf(input_Upper) !== -1
         })
         dispatchSearchStaff(result)
-        console.log(input_Upper)
-        console.log(result)
     }
 
 

@@ -11,7 +11,6 @@ import { FadeTransform } from 'react-animation-components';
 function MenuChiTietNhanVien(props) {
     // Component chi tiết nhân viên
     const dep = props.department.find((department) => department.id === props.staff.departmentId)
-    console.log(props.staff.department)
     const DetailStaff = (() => {
         return (
             <FadeTransform
