@@ -1,0 +1,59 @@
+@media only screen and (min-width: 768px) and (max-width: 992px) {
+    /* For tablets: */
+    * {
+        box-sizing: border-box;
+        margin: 0px;
+        padding: 0px;
+      }
+      .Sidebar {
+        background-color: #191718;
+        position: absolute;
+        width: 150px;
+        height: 1300px;
+    }
+    .item{
+        position: relative;
+        width: 150px;
+        height: 44px;
+        background-color: #191718;
+        color: #fff;
+    }
+    #icon{
+        display: none;
+    }
+    .title{
+        text-align: center;
+        margin-left: 10em
+    }
+    
+    .banner{
+        background-color: #f8f4f4;
+        text-align: center;
+        width: 500px;
+        margin-left: 15em;
+        padding: 1em 3em
+    }
+    
+    .col{
+        width: 80%;
+        /* float: left; */
+        padding: 1em 1em
+    }
+    .content{
+        margin-left: 15em
+    }
+    .footer{
+        position: relative;
+        width: 125px;
+        height: 19px;
+    
+        font-family: Roboto;
+        font-style: normal;
+        font-weight: normal;
+        font-size: 16px;
+        line-height: 19px;
+        margin-left: 15em;
+        color: black;
+    
+    }
+}

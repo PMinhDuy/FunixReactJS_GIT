@@ -1,0 +1,52 @@
+@media only screen and (min-width: 992px) {
+.Sidebar {
+    background-color: #191718;
+    position: absolute;
+    width: 150px;
+    height: 935px;
+}
+.item{
+    position: relative;
+    width: 150px;
+    height: 44px;
+    background-color: #191718;
+    color: #fff;
+}
+.title{
+    text-align: center;
+}
+#icon{
+    display: none;
+}
+
+.banner{
+    background-color: #f8f4f4;
+    text-align: center;
+    width: 700px;
+    margin-left: 15em;
+    padding: 1em 10em
+}
+
+.col{
+    width: 28%;
+    float: left;
+    padding: 1em 1em
+}
+.content{
+    margin-left: 15em
+}
+.footer{
+    position: relative;
+    width: 125px;
+    height: 19px;
+
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 16px;
+    line-height: 19px;
+    margin-left: 15em;
+    color: black;
+
+}
+}

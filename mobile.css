@@ -1,0 +1,54 @@
+@media only screen and (max-width: 767px) {
+    * {
+        box-sizing: border-box;
+        margin: 0px;
+        padding: 0px;
+      }
+      .Sidebar {
+
+        display: none;
+    }
+    .item{
+        display: none;
+
+    }
+    .title{
+        text-align: center;
+        margin-left: 3em
+    }
+    #icon{
+        float: right;
+        margin: 20px
+    }
+    
+    .banner{
+        background-color: #f8f4f4;
+        text-align: center;
+        width: 500px;
+        margin-left: 3em;
+        padding: 1em 3em
+    }
+    
+    .col{
+        width: 80%;
+        /* float: left; */
+        padding: 1em 1em
+    }
+    .content{
+        margin-left: 3em
+    }
+    .footer{
+        position: relative;
+        width: 125px;
+        height: 19px;
+    
+        font-family: Roboto;
+        font-style: normal;
+        font-weight: normal;
+        font-size: 16px;
+        line-height: 19px;
+        margin-left: 15em;
+        color: black;
+    
+    }
+}
