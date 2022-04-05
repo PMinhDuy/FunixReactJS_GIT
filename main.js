@@ -62,3 +62,4 @@ var DocumentElement = document.querySelector('.box');
 DocumentElement.innerHTML = '<h1>Javascript cơ bản</h1>';
 
 console.log(DocumentElement.classList.value)
+
